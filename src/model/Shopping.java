@@ -4,14 +4,12 @@ public class Shopping {
 
     private int id;
     private String name;
-    private Cinema cinema;
 
     public Shopping() { }
 
-    public Shopping(int id, String name, Cinema cinema) {
+    public Shopping(int id, String name) {
         this.id = id;
         this.name = name;
-        this.cinema = cinema;
     }
 
     public int getId() {
@@ -28,14 +26,6 @@ public class Shopping {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Cinema getCinema() {
-        return this.cinema;
-    }
-
-    public void setCinema(Cinema cinema) {
-        this.cinema = cinema;
     }
     
 }

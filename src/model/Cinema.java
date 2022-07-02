@@ -6,7 +6,8 @@ import java.util.List;
 public class Cinema {
     
     private int id;
-    protected List<SalaProjecao> salasProjecao = new ArrayList<SalaProjecao>();
+    private String nome;
+    private Shopping shopping;
 
     public Cinema() { }
 
