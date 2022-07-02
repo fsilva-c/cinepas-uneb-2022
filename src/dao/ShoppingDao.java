@@ -101,7 +101,7 @@ public class ShoppingDao {
         return Shoppings;
     }
 
-    public Categoria select(Shopping shop) {
+    public Shopping select(Shopping shop) {
         PreparedStatement stmt = null;
         ResultSet rs = null;
 

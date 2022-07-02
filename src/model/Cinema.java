@@ -1,6 +1,5 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Cinema {
@@ -8,6 +7,7 @@ public class Cinema {
     private int id;
     private String nome;
     private Shopping shopping;
+    private List<SalaProjecao> salasProjecao;
 
     public Cinema() { }
 
@@ -30,6 +30,22 @@ public class Cinema {
 
     public void setSalasProjecao(List<SalaProjecao> salasProjecao) {
         this.salasProjecao = salasProjecao;
+    }
+
+    public String getNome() {
+        return this.nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Shopping getShopping() {
+        return this.shopping;
+    }
+
+    public void setShopping(Shopping shopping) {
+        this.shopping = shopping;
     }
     
 }

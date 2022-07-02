@@ -1,6 +1,8 @@
 package dao;
 
 import model.Cinema;
+import model.Shopping;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,14 +43,14 @@ public class CinemaDao {
             stmt = this.conn.prepareStatement("INSERT INTO " + this.Table + "(nome, idshopping) VALUES(?,?)",
                     PreparedStatement.RETURN_GENERATED_KEYS);
             stmt.setString(1, cinema.getNome());
-            stmt.setString(2, cinema.shopping.getID());
+            stmt.setInt(2, cinema.getShopping().getId());
 
             // Execução da SQL
             stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
-                cat.setId(rs.getInt(1));
+                cinema.setId(rs.getInt(1));
             }
             this.conn.close();
             stmt.close();
@@ -94,7 +96,7 @@ public class CinemaDao {
                 
                 Shopping shopping = new Shopping();
                 shopping.setId(rs.getInt("idcategoria"));    
-                ShoppingDao shoppingDao = new shoppingDao();
+                ShoppingDao shoppingDao = new ShoppingDao();
 
                 cinema.setShopping(shoppingDao.select(shopping));
 
@@ -107,7 +109,8 @@ public class CinemaDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return categorias;
+
+        return cinemas;
     }
 
     public Cinema select(Cinema cinema) {
@@ -123,7 +126,7 @@ public class CinemaDao {
                 cinema.setNome(rs.getString("nome"));
                 Shopping shopping = new Shopping();
                 shopping.setId(rs.getInt("idcategoria"));    
-                ShoppingDao shoppingDao = new shoppingDao();
+                ShoppingDao shoppingDao = new ShoppingDao();
 
                 cinema.setShopping(shoppingDao.select(shopping));
             }
@@ -134,6 +137,6 @@ public class CinemaDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return shopping;
+        return cinema;
     }
 }
