@@ -7,52 +7,52 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public final class Conexao {
-    
+
     private static Conexao instance = new Conexao();
 
-    private Conexao() { 
-        
+    private Conexao() {
+
     }
-    
-    public static Connection conectar() {
+
+    public Connection conectar() {
         try {
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/cinepas","root", "123456");
+            return DriverManager.getConnection("jdbc:mysql://localhost:3306/cinepas", "root", "");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static void desconectar(Connection con){
+    public void desconectar(Connection con) {
         try {
             if (con != null) {
                 con.close();
-            } 
+            }
         } catch (SQLException ex) {
-                throw new RuntimeException(ex);
+            throw new RuntimeException(ex);
         }
     }
-    
-    public static void desconectar(Connection con, PreparedStatement stmt){
+
+    public void desconectar(Connection con, PreparedStatement stmt) {
         desconectar(con);
-        
+
         try {
-            if (stmt != null) {    //Significa que a conexão está aberto
+            if (stmt != null) { // Significa que a conexão está aberto
                 stmt.close();
-            } 
-        }catch (SQLException ex) {
-                throw new RuntimeException(ex);
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
     }
-    
-    public static void desconectar(Connection con, PreparedStatement stmt, ResultSet rs){
+
+    public void desconectar(Connection con, PreparedStatement stmt, ResultSet rs) {
         desconectar(con, stmt);
-        
+
         try {
-            if (rs != null) {    //Significa que a conexão está aberto
+            if (rs != null) { // Significa que a conexão está aberto
                 rs.close();
-            } 
-        }catch (SQLException ex) {
-                throw new RuntimeException(ex);
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
     }
 
