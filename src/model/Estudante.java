@@ -1,11 +1,14 @@
 package model;
 
 public class Estudante extends Cliente {
-    
+
 	protected String carteirinha;
 
+	public Estudante() {
+	}
+
 	public Estudante(String cpf, String nome, String carteirinha) {
-		super(cpf,nome);
+		super(cpf, nome);
 		this.carteirinha = carteirinha;
 	}
 

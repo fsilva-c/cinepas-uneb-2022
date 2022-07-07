@@ -3,7 +3,7 @@ package model.ingresso;
 import model.Cliente;
 
 public class IngressoBase implements IIngresso {
-    
+    protected int id;
     protected float preco;
     protected Cliente cliente;
     private IIngresso ingresso;
@@ -15,7 +15,6 @@ public class IngressoBase implements IIngresso {
     public IngressoBase(IIngresso ingresso) {
         this.ingresso = ingresso;
     }
-
 
     public IngressoBase(float preco, Cliente cliente) {
         this.preco = preco;
@@ -47,33 +46,49 @@ public class IngressoBase implements IIngresso {
         this.cliente = cliente;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-            " preco='" + getPreco() + "'" +
-            ", cliente='" + getCliente() + "'" +
-            "}";
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public IIngresso getIngresso() {
+        return ingresso;
+    }
+
+    public void setIngresso(IIngresso ingresso) {
+        this.ingresso = ingresso;
     }
 
     @Override
-    public float calcValor(){
+    public String toString() {
+        return "{" +
+                " preco='" + getPreco() + "'" +
+                ", cliente='" + getCliente() + "'" +
+                "}";
+    }
+
+    @Override
+    public float calcValor() {
 
         return ingresso.calcValor();
     }
 
-    public void vender(){
+    public void vender() {
 
     }
 
-    public void cancelar(){
+    public void cancelar() {
 
     }
 
-    public void imprimir(){
-        
+    public void imprimir() {
+
     }
 
-     public IngressoBase clonar() {
+    public IngressoBase clonar() {
         return new IngressoBase(this);
     }
 

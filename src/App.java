@@ -30,7 +30,7 @@ public class App {
         System.out.println(datahora3.maiorQue(datahora2.datahora()));
 
         // teste decorator...
-        IngressoBase ing2 = new IngressoMeia(new IngressoEspecial(new Ingresso(34.f, cliente)));
+        IIngresso ing2 = new IngressoMeia(new IngressoEspecial(new Ingresso(34.f, cliente)));
         System.out.println(ing2.calcValor());
 
         // teste ponteiro objeto...

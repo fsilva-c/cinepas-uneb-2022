@@ -3,16 +3,26 @@ package model.ingresso;
 import model.Cliente;
 
 public class Ingresso implements IIngresso {
+    protected int id;
+
     protected float preco;
     protected Cliente cliente;
-    
-    public float calcValor() { return preco; }
-    public void vender() { }
-    public void cancelar() { }
-    public void imprimir() { }
+
+    public float calcValor() {
+        return preco;
+    }
+
+    public void vender() {
+    }
+
+    public void cancelar() {
+    }
+
+    public void imprimir() {
+    }
 
     public Ingresso() {
-        
+
     }
 
     public Ingresso(float preco, Cliente cliente) {
@@ -22,7 +32,7 @@ public class Ingresso implements IIngresso {
 
     // Prototype Pattern...
     private Ingresso(Ingresso target) {
-         if (target != null) {
+        if (target != null) {
             this.preco = target.preco;
             this.cliente = target.cliente;
         }
@@ -32,7 +42,7 @@ public class Ingresso implements IIngresso {
         return new Ingresso(this);
     }
 
-      public float getPreco() {
+    public float getPreco() {
         return this.preco;
     }
 
@@ -48,12 +58,20 @@ public class Ingresso implements IIngresso {
         this.cliente = cliente;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "{" +
-            " preco='" + getPreco() + "'" +
-            ", cliente='" + getCliente() + "'" +
-            "}";
+                " preco='" + getPreco() + "'" +
+                ", cliente='" + getCliente() + "'" +
+                "}";
     }
-    
+
 }

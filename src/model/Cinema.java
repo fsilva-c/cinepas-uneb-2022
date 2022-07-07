@@ -4,11 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cinema {
-    
+
     private int id;
+    private String nome;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     protected List<SalaProjecao> salasProjecao = new ArrayList<SalaProjecao>();
 
-    public Cinema() { }
+    public Cinema() {
+    }
 
     public Cinema(int id, List<SalaProjecao> salasProjecao) {
         this.id = id;
@@ -30,5 +41,5 @@ public class Cinema {
     public void setSalasProjecao(List<SalaProjecao> salasProjecao) {
         this.salasProjecao = salasProjecao;
     }
-    
+
 }
