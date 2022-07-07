@@ -3,15 +3,13 @@ package model;
 public class Shopping {
 
     private int id;
-    private String name;
-    private Cinema cinema;
+    private String nome;
 
     public Shopping() { }
 
-    public Shopping(int id, String name, Cinema cinema) {
+    public Shopping(int id, String nome) {
         this.id = id;
-        this.name = name;
-        this.cinema = cinema;
+        this.nome = nome;
     }
 
     public int getId() {
@@ -22,20 +20,12 @@ public class Shopping {
         this.id = id;
     }
 
-    public String getName() {
-        return this.name;
+    public String getNome() {
+        return this.nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Cinema getCinema() {
-        return this.cinema;
-    }
-
-    public void setCinema(Cinema cinema) {
-        this.cinema = cinema;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
     
 }
