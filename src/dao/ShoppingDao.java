@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import model.Cinema;
 
 public class ShoppingDao {
     private Connection conn;
@@ -48,6 +49,12 @@ public class ShoppingDao {
             if (rs.next()) {
                 shop.setId(rs.getInt(1));
             }
+
+            for (Cinema cinema : shop.getCinemas()) {
+                CinemaDao cDao = new CinemaDao();
+                cDao.insert(cinema, shop);
+            }
+
             this.conn.close();
             stmt.close();
 
@@ -67,6 +74,11 @@ public class ShoppingDao {
             // Execução da SQL
             stmt.executeUpdate();
 
+            for (Cinema cinema : shop.getCinemas()) {
+                CinemaDao cDao = new CinemaDao();
+                cDao.delete(cinema);
+            }
+
             this.conn.close();
             stmt.close();
 
@@ -82,13 +94,17 @@ public class ShoppingDao {
         List<Shopping> Shoppings = new ArrayList<>();
 
         try {
-            stmt = this.conn.prepareStatement("SELECT * FROM" + this.Table);
+            stmt = this.conn.prepareStatement("SELECT * FROM " + this.Table);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Shopping shop = new Shopping();
                 shop.setId(rs.getInt("id"));
                 shop.setNome(rs.getString("nome"));
+
+                CinemaDao cDao = new CinemaDao();
+                shop.setCinemas(cDao.select(shop));
+
                 Shoppings.add(shop);
             }
 
@@ -112,6 +128,8 @@ public class ShoppingDao {
 
             while (rs.next()) {
                 shop.setNome(rs.getString("nome"));
+                CinemaDao cDao = new CinemaDao();
+                shop.setCinemas(cDao.select(shop));
             }
 
             this.conn.close();

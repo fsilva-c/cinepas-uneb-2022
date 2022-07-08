@@ -20,4 +20,9 @@ public class Estudante extends Cliente {
 		this.carteirinha = carteirinha;
 	}
 
+	@Override
+	public String toString() {
+		return super.toString() + "[ " + "Carteirinha: " + getCarteirinha() + " ]";
+	}
+
 }

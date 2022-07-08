@@ -7,7 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public final class Conexao {
-
+    // PAS: Utilização do padrão SINGLETON para utlizar uma única conexão com o
+    // banco de dados:
     private static Conexao instance = new Conexao();
 
     private Conexao() {
@@ -16,7 +17,7 @@ public final class Conexao {
 
     public Connection conectar() {
         try {
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/cinepas", "root", "");
+            return DriverManager.getConnection("jdbc:mysql://localhost:3306/cinepas", "root", "v1t0r");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

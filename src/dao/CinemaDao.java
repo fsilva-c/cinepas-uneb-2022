@@ -2,7 +2,7 @@ package dao;
 
 import model.Cinema;
 import model.Shopping;
-
+import model.SalaProjecao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,7 +24,6 @@ public class CinemaDao {
             stmt = this.conn.prepareStatement("UPDATE " + this.Table + " SET nome = ?, idshopping = ? WHERE id = ?");
             stmt.setString(1, cinema.getNome());
             stmt.setInt(2, cinema.getId());
-            stmt.setInt(2, cinema.getShopping().getId());
             stmt.executeUpdate();
 
             this.conn.close();
@@ -36,14 +35,14 @@ public class CinemaDao {
         return true;
     }
 
-    public boolean insert(Cinema cinema) {
+    public boolean insert(Cinema cinema, Shopping shopping) {
         PreparedStatement stmt = null;
         try {
             // Passagem de parametros
             stmt = this.conn.prepareStatement("INSERT INTO " + this.Table + "(nome, idshopping) VALUES(?,?)",
                     PreparedStatement.RETURN_GENERATED_KEYS);
             stmt.setString(1, cinema.getNome());
-            stmt.setInt(2, cinema.getShopping().getId());
+            stmt.setInt(2, shopping.getId());
 
             // Execução da SQL
             stmt.executeUpdate();
@@ -52,6 +51,12 @@ public class CinemaDao {
             if (rs.next()) {
                 cinema.setId(rs.getInt(1));
             }
+
+            for (SalaProjecao sala : cinema.getSalasProjecao()) {
+                SalaProjecaoDao sDao = new SalaProjecaoDao();
+                sDao.insert(sala, cinema);
+            }
+
             this.conn.close();
             stmt.close();
 
@@ -71,6 +76,11 @@ public class CinemaDao {
             // Execução da SQL
             stmt.executeUpdate();
 
+            for (SalaProjecao sala : cinema.getSalasProjecao()) {
+                SalaProjecaoDao sDao = new SalaProjecaoDao();
+                sDao.delete(sala);
+            }
+
             this.conn.close();
             stmt.close();
 
@@ -86,19 +96,47 @@ public class CinemaDao {
         List<Cinema> cinemas = new ArrayList<>();
 
         try {
-            stmt = this.conn.prepareStatement("SELECT * FROM" + this.Table);
+            stmt = this.conn.prepareStatement("SELECT * FROM " + this.Table);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Cinema cinema = new Cinema();
                 cinema.setId(rs.getInt("id"));
                 cinema.setNome(rs.getString("nome"));
-                
-                Shopping shopping = new Shopping();
-                shopping.setId(rs.getInt("idcategoria"));    
-                ShoppingDao shoppingDao = new ShoppingDao();
 
-                cinema.setShopping(shoppingDao.select(shopping));
+                SalaProjecaoDao sDao = new SalaProjecaoDao();
+                cinema.setSalasProjecao(sDao.select(cinema));
+
+                cinemas.add(cinema);
+            }
+
+            this.conn.close();
+            stmt.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return cinemas;
+    }
+
+    public List<Cinema> select(Shopping shopping) {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Cinema> cinemas = new ArrayList<>();
+
+        try {
+            stmt = this.conn.prepareStatement("SELECT * FROM " + this.Table + " WHERE idshopping = ?");
+            stmt.setInt(1, shopping.getId());
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Cinema cinema = new Cinema();
+                cinema.setId(rs.getInt("id"));
+                cinema.setNome(rs.getString("nome"));
+
+                SalaProjecaoDao sDao = new SalaProjecaoDao();
+                cinema.setSalasProjecao(sDao.select(cinema));
 
                 cinemas.add(cinema);
             }
@@ -125,10 +163,9 @@ public class CinemaDao {
             while (rs.next()) {
                 cinema.setNome(rs.getString("nome"));
                 Shopping shopping = new Shopping();
-                shopping.setId(rs.getInt("idcategoria"));    
-                ShoppingDao shoppingDao = new ShoppingDao();
-
-                cinema.setShopping(shoppingDao.select(shopping));
+                shopping.setId(rs.getInt("idcategoria"));
+                SalaProjecaoDao sDao = new SalaProjecaoDao();
+                cinema.setSalasProjecao(sDao.select(cinema));
             }
 
             this.conn.close();

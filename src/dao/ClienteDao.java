@@ -90,7 +90,7 @@ public class ClienteDao {
         List<Cliente> clientes = new ArrayList<>();
 
         try {
-            stmt = this.conn.prepareStatement("SELECT * FROM" + this.Table);
+            stmt = this.conn.prepareStatement("SELECT * FROM " + this.Table);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -120,6 +120,7 @@ public class ClienteDao {
     public Cliente select(Cliente cliente) {
         PreparedStatement stmt = null;
         ResultSet rs = null;
+        Cliente cli = null;
         try {
             stmt = this.conn.prepareStatement("SELECT * FROM " + this.Table + " WHERE cpf = ?");
             stmt.setString(1, cliente.getCpf());
@@ -127,10 +128,13 @@ public class ClienteDao {
 
             while (rs.next()) {
                 if (rs.getInt("tipoEstudante") == 1) {
-                    ((Estudante) cliente).setCarteirinha(rs.getString("carteirinha"));
+                    cli = new Estudante();
+                    ((Estudante) cli).setCarteirinha(rs.getString("carteirinha"));
+                } else {
+                    cli = new Cliente();
                 }
-                cliente.setCpf(rs.getString("cpf"));
-                cliente.setNome(rs.getString("nome"));
+                cli.setCpf(rs.getString("cpf"));
+                cli.setNome(rs.getString("nome"));
             }
 
             this.conn.close();
@@ -139,6 +143,6 @@ public class ClienteDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return cliente;
+        return cli;
     }
 }

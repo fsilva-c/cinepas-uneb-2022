@@ -1,16 +1,27 @@
 package model.sessao;
+
+import model.ingresso.*;
 import model.datahora.*;
 
-class SessaoMemento {
+public class SessaoMemento {
     private Sessao estadoSessao;
     private IDataHora datahora;
 
     public SessaoMemento(Sessao sessao) {
-        this.estadoSessao = sessao;
+        this.estadoSessao = new Sessao();
+
+        this.estadoSessao.setId(sessao.getId());
+        for (IIngresso ing : sessao.getIngressos()) {
+            Ingresso ingresso = new Ingresso();
+            ingresso.setId(ing.getId());
+            this.estadoSessao.addIngresso(ingresso);
+        }
+
+        System.out.println(estadoSessao.getIngressos());
         this.datahora = new AdapterDataHora();
     }
 
-    public Sessao state(){
+    public Sessao state() {
         return this.estadoSessao;
     }
 

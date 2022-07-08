@@ -3,11 +3,15 @@ package model.ingresso;
 import model.Cliente;
 
 public class IngressoEspecial extends IngressoBase {
-    
-    public void vender() { }
-    public void cancelar() { }
-    public void imprimir() { }
 
+    public void vender() {
+    }
+
+    public void cancelar() {
+    }
+
+    public void imprimir() {
+    }
 
     public IngressoEspecial() {
     }
@@ -26,12 +30,17 @@ public class IngressoEspecial extends IngressoBase {
     }
 
     @Override
+    public String toString() {
+        return super.toString() + "[ tipo: Especial ]";
+    }
+
+    @Override
     public IngressoEspecial clonar() {
         return new IngressoEspecial(this);
     }
-    
+
     public float calcValor() {
-        return super.calcValor() * 1.2f;  
+        return super.calcValor() * 1.2f;
     }
 
 }

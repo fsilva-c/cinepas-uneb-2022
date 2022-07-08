@@ -1,7 +1,7 @@
 package model;
 
 public class Filme {
-    
+
     private int id;
     private String titulo, diretor, atorPrincipal;
     private int duracao;
@@ -9,10 +9,11 @@ public class Filme {
     private Categoria categoria;
 
     public Filme() {
-        
+
     }
 
-    public Filme(int id, String titulo, String diretor, String atorPrincipal, int duracao, int classificacaoEtaria, Categoria categoria) {
+    public Filme(int id, String titulo, String diretor, String atorPrincipal, int duracao, int classificacaoEtaria,
+            Categoria categoria) {
         this.id = id;
         this.titulo = titulo;
         this.diretor = diretor;
@@ -80,15 +81,9 @@ public class Filme {
 
     @Override
     public String toString() {
-        return "{" +
-            " id='" + getId() + "'" +
-            ", titulo='" + getTitulo() + "'" +
-            ", diretor='" + getDiretor() + "'" +
-            ", atorPrincipal='" + getAtorPrincipal() + "'" +
-            ", duracao='" + getDuracao() + "'" +
-            ", classificacaoEtaria='" + getClassificacaoEtaria() + "'" +
-            ", categoria='" + getCategoria() + "'" +
-            "}";
+        return "[ " + "id: " + getId() + " titulo: " + getTitulo() + " duracao: " + getDuracao() + " min "
+                + " categoria: "
+                + getCategoria() + " ]";
     }
 
 }

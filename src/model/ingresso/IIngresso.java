@@ -26,4 +26,7 @@ public interface IIngresso {
 
     public IIngresso clonar();
 
+    @Override
+    public String toString();
+
 }

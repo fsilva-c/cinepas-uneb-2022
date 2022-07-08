@@ -1,6 +1,10 @@
 package model.sessao;
 
 import java.util.List;
+
+import dao.FilmeDao;
+import dao.IngressoDao;
+
 import java.util.ArrayList;
 
 import model.Filme;
@@ -8,10 +12,10 @@ import model.ingresso.IIngresso;
 import model.datahora.AdapterDataHora;
 
 public class Sessao {
-    
+
     private int id;
     private Filme filme;
-    private String horario;
+    private AdapterDataHora horario;
     private int vagasOcupadas;
     protected List<IIngresso> ingressos = new ArrayList<IIngresso>();
 
@@ -19,7 +23,7 @@ public class Sessao {
 
     }
 
-    public Sessao(int id, Filme filme, String horario, int vagasOcupadas, List<IIngresso> ingressos) {
+    public Sessao(int id, Filme filme, AdapterDataHora horario, int vagasOcupadas, List<IIngresso> ingressos) {
         this.id = id;
         this.filme = filme;
         this.horario = horario;
@@ -34,18 +38,18 @@ public class Sessao {
         this.vagasOcupadas = sessao.vagasOcupadas;
         this.ingressos = sessao.ingressos;
     }
-    
-    public String horarioFimSessao(){
-        AdapterDataHora datahora = new AdapterDataHora(this.horario);
-        return datahora.somarMinutos(this.filme.getDuracao());
+
+    public String horarioFimSessao() {
+        return this.horario.somarMinutos(this.filme.getDuracao());
     }
 
-    public SessaoMemento salvarContexto(){
+    public SessaoMemento salvarContexto() {
         return new SessaoMemento(this);
     }
 
-    public void RestaurarContexto(SessaoMemento memento){
+    public void RestaurarContexto(SessaoMemento memento) {
         clone(memento.state());
+        deletarIngressosCancelados();
     }
 
     public int getId() {
@@ -64,11 +68,11 @@ public class Sessao {
         this.filme = filme;
     }
 
-    public String getHorario() {
+    public AdapterDataHora getHorario() {
         return this.horario;
     }
 
-    public void setHorario(String horario) {
+    public void setHorario(AdapterDataHora horario) {
         this.horario = horario;
     }
 
@@ -80,7 +84,11 @@ public class Sessao {
         this.ingressos = ingressos;
     }
 
-    public int getVagasOcupadas() {        
+    public void addIngresso(IIngresso ingresso) {
+        this.ingressos.add(ingresso);
+    }
+
+    public int getVagasOcupadas() {
         return ingressos.size();
     }
 
@@ -90,12 +98,17 @@ public class Sessao {
 
     @Override
     public String toString() {
-        return "{" +
-            " id='" + getId() + "'" +
-            ", filme='" + getFilme() + "'" +
-            ", horario='" + getHorario() + "'" +
-            ", ingressos='" + getIngressos() + "'" +
-            "}";
+        String result = "[ " + "id: " + getId() + " filme: " + getFilme() + " horario: " + getHorario().datahora()
+                + "\n ingressos: ";
+        for (IIngresso iIngresso : ingressos) {
+            result += "\n" + iIngresso;
+        }
+        result += " ]";
+        return result;
     }
 
+    private void deletarIngressosCancelados() {
+        IngressoDao ingressoDao = new IngressoDao();
+        ingressoDao.deleteCanceled(this);
+    }
 }

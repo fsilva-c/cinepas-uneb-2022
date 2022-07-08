@@ -3,12 +3,15 @@ package model.ingresso;
 import model.Cliente;
 
 public class IngressoMeia extends IngressoBase {
-    
-    
-    public void vender() { }
-    public void cancelar() { }
-    public void imprimir() { }
 
+    public void vender() {
+    }
+
+    public void cancelar() {
+    }
+
+    public void imprimir() {
+    }
 
     public IngressoMeia() {
     }
@@ -32,7 +35,12 @@ public class IngressoMeia extends IngressoBase {
     }
 
     public float calcValor() {
-        return super.calcValor() / 2.0f;  
+        return super.calcValor() / 2.0f;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "[ tipo: Meia ]";
     }
 
 }

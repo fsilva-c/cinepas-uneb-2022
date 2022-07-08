@@ -82,7 +82,7 @@ public class CategoriaDao {
         List<Categoria> categorias = new ArrayList<>();
 
         try {
-            stmt = this.conn.prepareStatement("SELECT * FROM" + this.Table);
+            stmt = this.conn.prepareStatement("SELECT * FROM " + this.Table);
             rs = stmt.executeQuery();
 
             while (rs.next()) {

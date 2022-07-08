@@ -7,7 +7,6 @@ public class Cinema {
     private int id;
     private String nome;
     protected List<SalaProjecao> salasProjecao = new ArrayList<SalaProjecao>();
-    private Shopping shopping;
 
     public Cinema() {
     }
@@ -33,6 +32,10 @@ public class Cinema {
         this.salasProjecao = salasProjecao;
     }
 
+    public void addSalaProjecao(SalaProjecao salaProjecao) {
+        this.salasProjecao.add(salaProjecao);
+    }
+
     public String getNome() {
         return this.nome;
     }
@@ -41,12 +44,13 @@ public class Cinema {
         this.nome = nome;
     }
 
-    public Shopping getShopping() {
-        return this.shopping;
+    @Override
+    public String toString() {
+        String result = "[ " + "id: " + getId() + " nome: " + getNome() + "\n salas: ";
+        for (SalaProjecao sala : getSalasProjecao()) {
+            result += "\n" + sala;
+        }
+        result += " ]";
+        return result;
     }
-
-    public void setShopping(Shopping shopping) {
-        this.shopping = shopping;
-    }
-
 }

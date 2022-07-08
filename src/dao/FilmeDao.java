@@ -46,7 +46,7 @@ public class FilmeDao {
             // Passagem de parametros
             stmt = this.conn.prepareStatement(
                     "INSERT INTO " + this.Table
-                            + "(titulo,diretor,atorPrincipal,duracao,classificacao,idcategoria) VALUES(?,?,?,?,?)",
+                            + "(titulo,diretor,atorPrincipal,duracao,classificacao,idcategoria) VALUES(?,?,?,?,?,?)",
                     PreparedStatement.RETURN_GENERATED_KEYS);
             stmt.setString(1, filme.getTitulo());
             stmt.setString(2, filme.getDiretor());
@@ -96,7 +96,7 @@ public class FilmeDao {
         List<Filme> filmes = new ArrayList<>();
 
         try {
-            stmt = this.conn.prepareStatement("SELECT * FROM" + this.Table);
+            stmt = this.conn.prepareStatement("SELECT * FROM " + this.Table);
             rs = stmt.executeQuery();
 
             while (rs.next()) {

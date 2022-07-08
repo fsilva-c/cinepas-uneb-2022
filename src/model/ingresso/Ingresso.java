@@ -22,7 +22,7 @@ public class Ingresso implements IIngresso {
     }
 
     public Ingresso() {
-
+        this.preco = 30.2f;
     }
 
     public Ingresso(float preco, Cliente cliente) {
@@ -68,10 +68,7 @@ public class Ingresso implements IIngresso {
 
     @Override
     public String toString() {
-        return "{" +
-                " preco='" + getPreco() + "'" +
-                ", cliente='" + getCliente() + "'" +
-                "}";
+        return "[ " + "id: " + getId() + " preco: " + getPreco() + " cliente: " + getCliente() + " ]";
     }
 
 }

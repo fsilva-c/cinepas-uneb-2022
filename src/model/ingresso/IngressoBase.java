@@ -14,6 +14,9 @@ public class IngressoBase implements IIngresso {
 
     public IngressoBase(IIngresso ingresso) {
         this.ingresso = ingresso;
+        if (this.cliente == null) {
+            this.cliente = ingresso.getCliente();
+        }
     }
 
     public IngressoBase(float preco, Cliente cliente) {
@@ -31,7 +34,9 @@ public class IngressoBase implements IIngresso {
     }
 
     public float getPreco() {
-        return this.preco;
+        if (this.preco > 0.f)
+            return this.preco;
+        return this.calcValor();
     }
 
     public void setPreco(float preco) {
@@ -64,10 +69,16 @@ public class IngressoBase implements IIngresso {
 
     @Override
     public String toString() {
-        return "{" +
-                " preco='" + getPreco() + "'" +
-                ", cliente='" + getCliente() + "'" +
-                "}";
+        if (!(this.ingresso instanceof Ingresso))
+            if (this.getId() > 0)
+                return "[ " + "id: " + getId() + " preco: " + getPreco() + " cliente: " + getCliente() + " ]"
+                        + this.ingresso.toString();
+            else
+                return this.ingresso.toString();
+        else if (getId() > 0)
+            return "[ " + "id: " + getId() + " preco: " + getPreco() + " cliente: " + getCliente() + " ]";
+        return "";
+
     }
 
     @Override

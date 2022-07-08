@@ -1,10 +1,10 @@
 package model;
 
 public class SalaProjecao3D extends SalaProjecao {
-    
+
     protected String equipamentos;
 
-    public SalaProjecao3D() { 
+    public SalaProjecao3D() {
 
     }
 
@@ -19,5 +19,10 @@ public class SalaProjecao3D extends SalaProjecao {
     public void setEquipamentos(String equipamentos) {
         this.equipamentos = equipamentos;
     }
-    
+
+    @Override
+    public String toString() {
+        return "[ type: 3D ]" + super.toString();
+    }
+
 }

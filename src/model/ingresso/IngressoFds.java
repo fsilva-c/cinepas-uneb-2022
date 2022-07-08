@@ -3,11 +3,15 @@ package model.ingresso;
 import model.Cliente;
 
 public class IngressoFds extends IngressoBase {
-    
-    public void vender() { }
-    public void cancelar() { }
-    public void imprimir() { }
 
+    public void vender() {
+    }
+
+    public void cancelar() {
+    }
+
+    public void imprimir() {
+    }
 
     public IngressoFds() {
     }
@@ -31,7 +35,11 @@ public class IngressoFds extends IngressoBase {
     }
 
     public float calcValor() {
-        return super.calcValor() * 1.05f;  
+        return super.calcValor() * 1.05f;
     }
 
+    @Override
+    public String toString() {
+        return super.toString() + "[ tipo: FDS ]";
+    }
 }
